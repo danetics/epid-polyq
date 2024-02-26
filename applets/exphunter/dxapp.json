@@ -62,7 +62,7 @@
       "label": "compute threads",
       "class": "float",
       "optional": true,
-      "default": 16,
+      "default": 16
     }
   ],
   "outputSpec": [
