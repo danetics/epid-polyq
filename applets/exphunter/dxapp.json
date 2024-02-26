@@ -10,7 +10,7 @@
       "label": "aligned sequence reads",
       "class": "file",
       "optional": false,
-      "patterns": ["*.cram(?!.crai)"],
+      "patterns": ["*.cram","*.bam"],
       "help": "WGS reads on which STR copy-number genotypes to be called"
     },
     {

@@ -12,7 +12,7 @@ import dxpy
 import subprocess
 
 @dxpy.entry_point('main')
-def main(readfile, buildfile, varcatalog, outprefix):
+def main(readfile, buildfile, varcatalog, outprefix, mode, threads):
 
     # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
