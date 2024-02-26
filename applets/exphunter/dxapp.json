@@ -18,6 +18,7 @@
       "label": "genome reference build",
       "class": "file",
       "optional": true,
+      "patterns": ["*.fa","*.fa.gz"],
       "default": {
           "$dnanexus_link": 
               {
@@ -25,13 +26,14 @@
                   "id": "file-Fx2x270Jx0j17zkb3kbBf6q2"
               }
       },
-      "help": "reference build to which iput reads are aligned"
+      "help": "reference build to which input reads are aligned: default set to DNANexus core hg38"
     },
     {
       "name": "varcatalog",
       "label": "STR variant metadata",
       "class": "file",
       "optional": true,
+      "patterns": ["*.json"],
       "default": {
           "$dnanexus_link": "file-GgK8P7QJK6YKKp0bpq6BPx0p"
       },
@@ -42,7 +44,7 @@
       "label": "prefix for output files",
       "class": "string",
       "optional": true,
-      "default": "exphunter_strcalls",
+      "default": "exphunter_results",
       "help": "string prefix to be used in output VCF and JSON filenames"
     },
     {
