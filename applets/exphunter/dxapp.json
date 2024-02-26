@@ -1,75 +1,82 @@
 {
   "name": "exphunter",
-  "title": "Illumina Expansion Hunter",
-  "summary": "Genotype STRs for copy number in WGS aligned sequence reads (BAM, CRAM) using Expansion Hunter method",
+  "title": "Expansion Hunter by Illumina",
+  "summary": "Genotype STRs for copy number in WGS aligned sequence reads",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
     {
       "name": "readfile",
-      "label": "(BAM or CRAM) aligned sequence reads in which STRs to be genotyped for copy number",
+      "label": "aligned sequence reads",
       "class": "file",
       "optional": false,
       "patterns": ["*.bam","*.cram"],
-      "help": ""
+      "help": "WGS reads on which STR copy-number genotypes to be called"
     },
     {
       "name": "buildfile",
-      "label": "(FASTA) genome reference build to which reads are aligned",
+      "label": "genome reference build",
       "class": "file",
       "optional": true,
-      "default": {"$dnanexus_link": {"project": "project-Fx2x0fQJ06KfqV7Y3fFZq1jp","id": "file-Fx2x270Jx0j17zkb3kbBf6q2"}},
-      "help": ""
+      "default": {
+          "$dnanexus_link": 
+              {
+                  "project": "project-Fx2x0fQJ06KfqV7Y3fFZq1jp",
+                  "id": "file-Fx2x270Jx0j17zkb3kbBf6q2"
+              }
+      },
+      "help": "reference build to which iput reads are aligned"
     },
     {
       "name": "varcatalog",
-      "label": "(JSON) Defined STR metadata for which genotyping should be attempted",
+      "label": "STR variant metadata",
       "class": "file",
       "optional": true,
-      "default": {"$dnanexus_link": "file-GgK8P7QJK6YKKp0bpq6BPx0p"},
-      "help": ""
+      "default": {
+          "$dnanexus_link": "file-GgK8P7QJK6YKKp0bpq6BPx0p"
+      },
+      "help": "metadata for defined STRs on which genotyping should be attempted, in Expansion Hunter Variant Catalog schema"
     },
     {
       "name": "outprefix",
-      "label": "(STR) prefix to be used in naming of output files",
+      "label": "prefix for output files",
       "class": "string",
       "optional": true,
-      "default": "strcalls_exphunter",
-      "help": ""
+      "default": "exphunter_strcalls",
+      "help": "string prefix to be used in output VCF and JSON filenames"
     },
     {
       "name": "mode",
-      "label": "(STR) Expansion Hunter analysis mode",
+      "label": "STR analysis mode",
       "class": "string",
       "optional": true,
       "default": "streaming",
       "patterns": ["seeking","streaming"],
       "suggestions": ["seeking","streaming"],
-      "help": "reads must be sorted if using seeking analysis mode, therefore default is streaming which requires no preprocessing"
+      "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted"
     },
     {
       "name": "threads",
-      "label": "(FLOAT) threads to be used",
+      "label": "compute threads",
       "class": "float",
       "optional": true,
       "default": 16,
-      "help": ""
     }
   ],
   "outputSpec": [
     {
       "name": "outvcf",
-      "label": "(VCF) STR copy number genotypes and metadata; equivalent to JSON",
+      "label": "STR copy number genotypes",
       "class": "file",
       "patterns": ["*.vcf"],
-      "help": ""
+      "help": "copy number calls and metadata for available STRs in variant catalog.  Equivalent to output JSON"
     },
     {
       "name": "outjson",
-      "label": "(JSON) STR copy number genotypes and metadata; equivalent to VCF but easier to parse programatically",
+      "label": "STR copy number genotypes",
       "class": "file",
       "patterns": ["*.json"],
-      "help": ""
+      "help": "copy number calls and metadata for available STRs in variant catalog.  Equivalent to output VCF"
     }
   ],
   "runSpec": {
