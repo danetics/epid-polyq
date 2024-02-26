@@ -10,7 +10,7 @@
       "label": "aligned sequence reads",
       "class": "file",
       "optional": false,
-      "patterns": ["*.bam","*.cram"],
+      "patterns": ["*.cram(?!.crai)"],
       "help": "WGS reads on which STR copy-number genotypes to be called"
     },
     {
@@ -18,7 +18,7 @@
       "label": "genome reference build",
       "class": "file",
       "optional": true,
-      "patterns": ["*.fa","*.fa.gz"],
+      "patterns": ["*.fa"],
       "default": {
           "$dnanexus_link": 
               {
