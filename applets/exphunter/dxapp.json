@@ -1,0 +1,96 @@
+{
+  "name": "exphunter",
+  "title": "Illumina Expansion Hunter",
+  "summary": "Genotype STRs for copy number in WGS aligned sequence reads (BAM, CRAM) using Expansion Hunter method",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "readfile",
+      "label": "(BAM or CRAM) aligned sequence reads in which STRs to be genotyped for copy number",
+      "class": "file",
+      "optional": false,
+      "patterns": ["*.bam","*.cram"],
+      "help": ""
+    },
+    {
+      "name": "buildfile",
+      "label": "(FASTA) genome reference build to which reads are aligned",
+      "class": "file",
+      "optional": true,
+      "default": {"$dnanexus_link": {"project": "project-Fx2x0fQJ06KfqV7Y3fFZq1jp","id": "file-Fx2x270Jx0j17zkb3kbBf6q2"}},
+      "help": ""
+    },
+    {
+      "name": "varcatalog",
+      "label": "(JSON) Defined STR metadata for which genotyping should be attempted",
+      "class": "file",
+      "optional": true,
+      "default": {"$dnanexus_link": "file-GgK8P7QJK6YKKp0bpq6BPx0p"},
+      "help": ""
+    },
+    {
+      "name": "outprefix",
+      "label": "(STR) prefix to be used in naming of output files",
+      "class": "string",
+      "optional": true,
+      "default": "strcalls_exphunter",
+      "help": ""
+    },
+    {
+      "name": "mode",
+      "label": "(STR) Expansion Hunter analysis mode",
+      "class": "string",
+      "optional": true,
+      "default": "streaming",
+      "patterns": ["seeking","streaming"],
+      "suggestions": ["seeking","streaming"],
+      "help": "reads must be sorted if using seeking analysis mode, therefore default is streaming which requires no preprocessing"
+    },
+    {
+      "name": "threads",
+      "label": "(FLOAT) threads to be used",
+      "class": "float",
+      "optional": true,
+      "default": 16,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "outvcf",
+      "label": "(VCF) STR copy number genotypes and metadata; equivalent to JSON",
+      "class": "file",
+      "patterns": ["*.vcf"],
+      "help": ""
+    },
+    {
+      "name": "outjson",
+      "label": "(JSON) STR copy number genotypes and metadata; equivalent to VCF but easier to parse programatically",
+      "class": "file",
+      "patterns": ["*.json"],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 12
+      }
+    },
+    "interpreter": "python3",
+    "file": "src/exphunter.py",
+    "distribution": "Ubuntu",
+    "release": "20.04",
+    "version": "0"
+  },
+  "regionalOptions": {
+    "aws:eu-west-2": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x4"
+        }
+      }
+    }
+  }
+}
