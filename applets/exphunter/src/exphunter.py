@@ -12,7 +12,7 @@ import dxpy
 import subprocess
 
 @dxpy.entry_point('main')
-def main(readfile, buildfile, varcatalog, outprefix, mode):
+def main(readfile, buildfile, varcatalog, outprefix, mode, sex):
 
     # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
@@ -27,7 +27,8 @@ def main(readfile, buildfile, varcatalog, outprefix, mode):
 
     # Run Expansion Hunter as a bash subprocess using string formatting to pass variables
     # Note: the shell=True command is sub-optimal.  This should be changed to execute using subprocess.run()
-    cmd = f"""ExpansionHunter --reads readfile.cram --reference buildfile.fa --variant-catalog varcatalog.json --output-prefix {outprefix} --analysis-mode {mode} --threads 16"""
+    # Threads are hard-coded to 16 as this is optimal for the streaming analysis mode
+    cmd = f"""ExpansionHunter --reads readfile.cram --reference buildfile.fa --variant-catalog varcatalog.json --output-prefix {outprefix} --analysis-mode {mode} --sex {sex} --threads 16"""
     subprocess.check_call(cmd, shell=True)
 
     # Upload created files from instance to project
