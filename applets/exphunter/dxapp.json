@@ -18,13 +18,9 @@
       "label": "genome reference build",
       "class": "file",
       "optional": true,
-      "patterns": ["*.fa"],
+      "patterns": ["*.fa","*.fna"],
       "default": {
-          "$dnanexus_link": 
-              {
-                  "project": "project-Fx2x0fQJ06KfqV7Y3fFZq1jp",
-                  "id": "file-Fx2x270Jx0j17zkb3kbBf6q2"
-              }
+          "$dnanexus_link": "file-GgKxYV0JK6Y0v7zPPyK5g7G1"
       },
       "help": "reference build to which input reads are aligned: default set to DNANexus core hg38"
     },
