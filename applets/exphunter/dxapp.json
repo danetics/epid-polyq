@@ -31,7 +31,7 @@
       "optional": true,
       "patterns": ["*.json"],
       "default": {
-          "$dnanexus_link": "file-GgK8P7QJK6YKKp0bpq6BPx0p"
+          "$dnanexus_link": "file-GgP1ByQJK6Y3kY5KkGGJZy5b"
       },
       "help": "metadata for defined STRs on which genotyping should be attempted, in Expansion Hunter Variant Catalog schema"
     },
@@ -52,6 +52,16 @@
       "patterns": ["seeking","streaming"],
       "suggestions": ["seeking","streaming"],
       "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted"
+    },
+    {
+      "name": "sex",
+      "label": "genetic sex of individual",
+      "class": "string",
+      "optional": true,
+      "default": "female",
+      "patterns": ["male","female"],
+      "suggestions": ["male","female"],
+      "help": "specify the genetic sex of the individual represented by the input sequenced reads file"
     }
   ],
   "outputSpec": [
