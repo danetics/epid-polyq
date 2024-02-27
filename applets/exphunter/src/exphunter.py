@@ -22,12 +22,12 @@ def main(readfile, buildfile, varcatalog, outprefix, mode):
 
     # Download initialised files to instance
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
-    dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa.gz")
+    dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
 
     # Run Expansion Hunter as a bash subprocess using string formatting to pass variables
     # Note: the shell=True command is sub-optimal.  This should be changed to execute using subprocess.run()
-    cmd = f"""ExpansionHunter --reads readfile.cram --reference buildfile.fa.gz --variant-catalog varcatalog.json --output-prefix {outprefix} --analysis-mode {mode} --threads 16"""
+    cmd = f"""ExpansionHunter --reads readfile.cram --reference buildfile.fa --variant-catalog varcatalog.json --output-prefix {outprefix} --analysis-mode {mode} --threads 16"""
     subprocess.check_call(cmd, shell=True)
 
     # Upload created files from instance to project
