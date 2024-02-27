@@ -12,7 +12,7 @@ import dxpy
 import subprocess
 
 @dxpy.entry_point('main')
-def main(readfile, buildfile, varcatalog, outprefix, mode, threads):
+def main(readfile, buildfile, varcatalog, outprefix, mode):
 
     # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
@@ -25,7 +25,15 @@ def main(readfile, buildfile, varcatalog, outprefix, mode, threads):
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog")
 
     # Run Expansion Hunter as a bash subprocess
-    cmd = "ExpansionHunter --reads readfile --reference buildfile --variant-catalog varcatalog --output-prefix outprefix --threads threads --analysis-mode mode"
+    cmd = """
+        ExpansionHunter 
+        --reads readfile 
+        --reference buildfile 
+        --variant-catalog varcatalog 
+        --output-prefix outprefix 
+        --analysis-mode mode
+        --threads 16
+        """
     subprocess.check_call(cmd, shell=True)
 
     # Upload created files from instance to project

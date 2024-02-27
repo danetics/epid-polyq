@@ -56,13 +56,6 @@
       "patterns": ["seeking","streaming"],
       "suggestions": ["seeking","streaming"],
       "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted"
-    },
-    {
-      "name": "threads",
-      "label": "compute threads",
-      "class": "float",
-      "optional": true,
-      "default": 16
     }
   ],
   "outputSpec": [
