@@ -31,7 +31,7 @@
       "optional": true,
       "patterns": ["*.json"],
       "default": {
-          "$dnanexus_link": "file-GgP1ByQJK6Y3kY5KkGGJZy5b"
+          "$dnanexus_link": "file-GgP1j7jJK6YJ4vVZkZQf8qPJ"
       },
       "help": "metadata for defined STRs on which genotyping should be attempted, in Expansion Hunter Variant Catalog schema"
     },
