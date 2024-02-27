@@ -24,7 +24,6 @@ def main(readfile, buildfile, varcatalog, outprefix, mode):
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
     dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa.gz")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
-    print(f'downloaded input files to instance {os.listdir()}')
 
     # Run Expansion Hunter as a bash subprocess using string formatting to pass variables
     # Note: the shell=True command is sub-optimal.  This should be changed to execute using subprocess.run()
