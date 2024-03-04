@@ -2,7 +2,6 @@
   "name": "exphunter",
   "title": "Expansion Hunter by Illumina",
   "summary": "Genotype STRs for copy number in WGS aligned sequence reads",
-  "outputFolder": "/results",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
@@ -57,10 +56,10 @@
       "label": "STR analysis mode",
       "class": "string",
       "optional": true,
-      "default": "streaming",
+      "default": "seeking",
       "patterns": ["seeking","streaming"],
       "suggestions": ["seeking","streaming"],
-      "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted"
+      "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted, which UKB DRAGEN outputs are"
     },
     {
       "name": "sex",
