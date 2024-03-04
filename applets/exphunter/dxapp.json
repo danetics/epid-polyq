@@ -22,7 +22,7 @@
       "default": {
           "$dnanexus_link": "file-GgXvv7jJK6Y4XZJ0ZFy35K6V"
       },
-      "help": "reference build to which input reads are aligned: default set to DNANexus core hg38"
+      "help": "reference build to which input reads are aligned: default set tto UCSC hg38"
     },
     {
       "name": "varcatalog",
@@ -33,7 +33,7 @@
       "default": {
           "$dnanexus_link": "file-GgXv468JK6Y15zg5XYj1YKBK"
       },
-      "help": "metadata for defined STRs to be genotyped: defau"
+      "help": "variant catalog metadata for defined STRs to be genotyped: defaults to Illumina hg38 genome-wide STR catalog"
     },
     {
       "name": "outprefix",
