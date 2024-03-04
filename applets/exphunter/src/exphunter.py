@@ -12,16 +12,18 @@ import dxpy
 import subprocess
 
 @dxpy.entry_point('main')
-def main(readfile, buildfile, varcatalog, outprefix, mode, sex):
+def main(readfile, readindex, buildfile, varcatalog, outprefix, mode, sex):
 
     # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
+    readindex = dxpy.DXFile(readindex)
     buildfile = dxpy.DXFile(buildfile)
     varcatalog = dxpy.DXFile(varcatalog)
     print('initialised DX links as dxpy.DXDataObject bindings')
 
     # Download initialised files to instance
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
+    dxpy.download_dxfile(readindex.get_id(), "readfile.cram.crai")
     dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
 
