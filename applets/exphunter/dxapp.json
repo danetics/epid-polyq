@@ -20,7 +20,7 @@
       "optional": true,
       "patterns": ["*.fa","*.fna"],
       "default": {
-          "$dnanexus_link": "file-GgKxYV0JK6Y0v7zPPyK5g7G1"
+          "$dnanexus_link": "file-GgXvv7jJK6Y4XZJ0ZFy35K6V"
       },
       "help": "reference build to which input reads are aligned: default set to DNANexus core hg38"
     },
@@ -31,9 +31,9 @@
       "optional": true,
       "patterns": ["*.json"],
       "default": {
-          "$dnanexus_link": "file-GgP1j7jJK6YJ4vVZkZQf8qPJ"
+          "$dnanexus_link": "file-GgXv468JK6Y15zg5XYj1YKBK"
       },
-      "help": "metadata for defined STRs on which genotyping should be attempted, in Expansion Hunter Variant Catalog schema"
+      "help": "metadata for defined STRs to be genotyped: defau"
     },
     {
       "name": "outprefix",
