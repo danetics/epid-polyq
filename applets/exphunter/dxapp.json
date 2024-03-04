@@ -7,11 +7,19 @@
   "inputSpec": [
     {
       "name": "readfile",
-      "label": "aligned sequence reads",
+      "label": "Aligned sequence reads for individual",
       "class": "file",
       "optional": false,
       "patterns": ["*.cram","*.bam"],
-      "help": "WGS reads on which STR copy-number genotypes to be called"
+      "help": "Sample-level WGS reads (IPD) on which STR copy-number genotypes to be called"
+    },
+    {
+      "name": "readindex",
+      "label": "Index file corresponding to sequence reads",
+      "class": "file",
+      "optional": false,
+      "patterns": ["*.cram.crai","*.bam.bai"],
+      "help": "CRAM or BAM index for sample-level WGS reads file"
     },
     {
       "name": "buildfile",
