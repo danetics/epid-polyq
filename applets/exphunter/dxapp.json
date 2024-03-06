@@ -1,7 +1,7 @@
 {
   "name": "exphunter",
-  "title": "Expansion Hunter by Illumina",
-  "summary": "Genotype STRs for copy number in WGS aligned sequence reads",
+  "title": "Expansion Hunter",
+  "summary": "Genotype STRs for copy number in sample-level WGS aligned sequence reads",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
@@ -14,34 +14,26 @@
       "help": "Sample-level WGS reads (IPD) on which STR copy-number genotypes to be called"
     },
     {
-      "name": "readindex",
-      "label": "Index file corresponding to sequence reads",
-      "class": "file",
-      "optional": false,
-      "patterns": ["*.cram.crai","*.bam.bai"],
-      "help": "CRAM or BAM index for sample-level WGS reads file"
-    },
-    {
       "name": "buildfile",
-      "label": "genome reference build",
+      "label": "Genome reference build",
       "class": "file",
       "optional": true,
       "patterns": ["*.fa","*.fna"],
       "default": {
-          "$dnanexus_link": "file-GgXvv7jJK6Y4XZJ0ZFy35K6V"
+          "$dnanexus_link": "file-GgYQVY0J8kk1ZVF93xb4Vzbv"
       },
-      "help": "reference build to which input reads are aligned: default set tto UCSC hg38"
+      "help": "Reference build to which sample-level input reads CRAM is aligned.  This field defaults to the Ensembl alignment-centric hg38 as used in the UKB DRAGEN WGS calling pipeline.  It is important that the exact version used for alignment of the CRAM file is used, otherwise there may be issues with downstream analysis, particularly in streaming mode"
     },
     {
       "name": "varcatalog",
-      "label": "STR variant metadata",
+      "label": "ExpansionHunter variant catalog or subset thereof",
       "class": "file",
       "optional": true,
       "patterns": ["*.json"],
       "default": {
-          "$dnanexus_link": "file-GgXv468JK6Y15zg5XYj1YKBK"
+          "$dnanexus_link": "file-GgXxKG8JK6YKJ8kzGfjbB8KZ"
       },
-      "help": "variant catalog metadata for defined STRs to be genotyped: defaults to Illumina hg38 genome-wide STR catalog"
+      "help": "ExpansionHunter variant catalog for defined STRs to be genotyped.  This field defaults to the pathogenic subset of the Illumina genome-wide STR catalog"
     },
     {
       "name": "outprefix",
@@ -59,7 +51,7 @@
       "default": "seeking",
       "patterns": ["seeking","streaming"],
       "suggestions": ["seeking","streaming"],
-      "help": "analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted, which UKB DRAGEN outputs are"
+      "help": "Analysis mode to be applied in STR calling.  To run in 'seeking' mode, sequence reads must be pre-sorted, which UKB DRAGEN outputs are.  Seeking mode iterates through the specified STRs and is recommended for small catalogs.  Streaming mode is optimised for large catalogs and instead streams the reads, attempting genotyping as defined STRs appear."
     },
     {
       "name": "sex",
