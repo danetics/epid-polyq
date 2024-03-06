@@ -10,22 +10,26 @@
 import os
 import dxpy
 import subprocess
+from pathlib import Path
 
 @dxpy.entry_point('main')
-def main(readfile, readindex, buildfile, varcatalog, outprefix, mode, sex):
+def main(readfile, buildfile, varcatalog, mode, sex):
 
     # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
-    readindex = dxpy.DXFile(readindex)
     buildfile = dxpy.DXFile(buildfile)
     varcatalog = dxpy.DXFile(varcatalog)
     print('initialised DX links as dxpy.DXDataObject bindings')
 
     # Download initialised files to instance
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
-    dxpy.download_dxfile(readindex.get_id(), "readfile.cram.crai")
     dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
+
+    # Parse EID and varcat name to use in naming output files
+    eid = readfile.name.split('_')[0]
+    catname = Path(varcatalog.name).stem.split('_',2)[2]
+    outprefix = f'{eid}_str_{catname}'
 
     # Run Expansion Hunter as a bash subprocess using string formatting to pass variables
     # Note: the shell=True command is sub-optimal.  This should be changed to execute using subprocess.run()
