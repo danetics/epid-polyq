@@ -9,12 +9,15 @@
 
 import os
 import dxpy
+import datetime
 import subprocess
 from pathlib import Path
 
 @dxpy.entry_point('main')
 def main(readfile, buildfile, varcatalog, mode, sex):
 
+    print(f'Start time: {datetime.datetime.now()}')
+    
     # Initialise file inputs (DX file-IDs) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
     buildfile = dxpy.DXFile(buildfile)
@@ -50,6 +53,8 @@ def main(readfile, buildfile, varcatalog, mode, sex):
     output = {}
     output["outvcf"] = dxpy.dxlink(outvcf)
     output["outjson"] = dxpy.dxlink(outjson)
+
+    print(f'End time: {datetime.datetime.now()}')
     return output
 
 dxpy.run()
