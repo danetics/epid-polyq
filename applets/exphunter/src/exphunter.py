@@ -15,14 +15,19 @@ from pathlib import Path
 @dxpy.entry_point('main')
 def main(readfile, buildfile, varcatalog, mode, sex):
 
-    # Initialise file inputs (DX file links) as dxpy.DXDataObject bindings
+    # Initialise file inputs (DX file-IDs) as dxpy.DXDataObject bindings
     readfile = dxpy.DXFile(readfile)
     buildfile = dxpy.DXFile(buildfile)
     varcatalog = dxpy.DXFile(varcatalog)
     print('initialised DX links as dxpy.DXDataObject bindings')
 
+    # Use input CRAM readfile to get DX file-ID of its corresponding index and initialise it
+    readindexname = f'{readfile.name}.crai'
+    readindex = dxpy.DXFile(dxpy.find_one_data_object(name=readindexname)['id'])
+
     # Download initialised files to instance
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
+    dxpy.download_dxfile(readindex.get_id(), "readindex.cram.crai")
     dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
 
