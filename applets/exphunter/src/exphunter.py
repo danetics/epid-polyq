@@ -27,7 +27,7 @@ def main(readfile, buildfile, varcatalog, mode, sex):
 
     # Download initialised files to instance
     dxpy.download_dxfile(readfile.get_id(), "readfile.cram")
-    dxpy.download_dxfile(readindex.get_id(), "readindex.cram.crai")
+    dxpy.download_dxfile(readindex.get_id(), "readfile.cram.crai")
     dxpy.download_dxfile(buildfile.get_id(), "buildfile.fa")
     dxpy.download_dxfile(varcatalog.get_id(), "varcatalog.json")
 
