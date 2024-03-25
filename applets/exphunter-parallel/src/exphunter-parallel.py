@@ -76,6 +76,7 @@ def main(cramlist, buildfile, varcatalog, mode, sex):
     # Process cramlist to a list of file IDs
     with open('cramlist.txt', 'r') as f:
         filelist = [x.strip('\n') for x in f.readlines()]
+    print(f'Cramlist contains {len(filelist)} DX IDs')
     
     # Spawn new exphunter jobs for each CRAM and track submissions in a list of DX job objects
     subjobs = list()
@@ -98,8 +99,8 @@ def main(cramlist, buildfile, varcatalog, mode, sex):
 
     # Return all subjob files
     outputs = {
-        "vcflist": postprocess_job.get_output_ref(vcflist),
-        "jsonlist": postprocess_job.get_output_ref(jsonlist)
+        "vcflist": postprocess_job.get_output_ref('vcflist'),
+        "jsonlist": postprocess_job.get_output_ref('jsonlist')
     }
     return outputs
 
