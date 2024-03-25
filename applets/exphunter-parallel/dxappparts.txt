@@ -1,0 +1,7 @@
+    {
+      "name": "genotypes",
+      "label": "Cohort-level summary of genotypes for each sample",
+      "class": "file",
+      "patterns": ["*.txt"],
+      "help": "Cohort-level summary of derived copy number genotypes for each sample at each defined STR as a single tabular TSV output"
+    }
