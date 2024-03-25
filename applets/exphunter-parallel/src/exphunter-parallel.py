@@ -81,7 +81,7 @@ def main(cramlist, buildfile, varcatalog, mode, sex):
     subjobs = list()
     for cram in filelist:
         subjob_input = {
-            'cram': cram,
+            'cram': dxpy.DXFile(cram).get_id(),
             'buildfile': buildfile, 
             'varcatalog': varcatalog,
             'mode': mode,
