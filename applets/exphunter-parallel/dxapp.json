@@ -57,9 +57,14 @@
   ],
   "outputSpec": [
       {
-          "name": "outvcfs",
+          "name": "vcflist",
           "class": "array:file",
           "patterns": ["*.vcf"]
+      },
+      {
+          "name": "jsonlist",
+          "class": "array:file",
+          "patterns": ["*.json"]
       }
   ],
   "runSpec": {

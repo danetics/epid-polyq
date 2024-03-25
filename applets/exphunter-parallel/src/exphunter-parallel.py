@@ -19,24 +19,29 @@ import subprocess
 from pathlib import Path
 
 @dxpy.entry_point("postprocess")
-def postprocess(suboutputs):
+def postprocess(vcflist, jsonlist):
     '''
     Postprocessing step to gather exphunters JSONs and combine into a single simplified output
     Currently a placeholder until there is more clarity on required output for association testing
+    Simply returns the VCF outputs of each job 
     '''
 
     #for x in suboutputs:   
     #    dxpy.download_dxfile(dxpy.DXFile(x).get_id(), 'current.json')
     #    data = pd.read_json()
-    return {'outvcfs': suboutputs}
+    return {'vcflist': vcflist, 'jsonlist': jsonlist}
     
 
 @dxpy.entry_point("process")
-def process(cram, crai, buildfile, varcatalog, mode, sex):
+def process(cram, buildfile, varcatalog, mode, sex):
     ''' 
     Primary subprocess to run exphunter on a single CRAM
     Code duplicated from basic exphunter applet 
     '''
+    
+    # Identify CRAI file corresponding to input CRAM
+    crai_name = f'{dxpy.DXFile(cram).name}.crai'
+    crai = dxpy.find_one_data_object(name=crai_name)['id']
     
     # Download files
     dxpy.download_dxfile(cram, 'readfile.cram')
@@ -68,22 +73,15 @@ def main(cramlist, buildfile, varcatalog, mode, sex):
     # Download input list of CRAMs (from provide DX File ID)
     dxpy.download_dxfile(cramlist, "cramlist.txt")
 
-    # Process cramlist to a list of tuples with paired CRAM-CRAI DXFile objects to pass to jobs
+    # Process cramlist to a list of file IDs
     with open('cramlist.txt', 'r') as f:
         filelist = [x.strip('\n') for x in f.readlines()]
-    filepairs = list()
-    for x in filelist:
-        crai_name = f'{dxpy.DXFile(x).name}.crai'
-        crai_id = dxpy.find_one_data_object(name=crai_name)['id']
-        filepairs.append((x, crai_id))
-    print(filepairs)
     
-    # Spawn new exphunter jobs for each filepair and track submissions in a list of DX job objects
+    # Spawn new exphunter jobs for each CRAM and track submissions in a list of DX job objects
     subjobs = list()
-    for x in filepairs:
+    for cram in filelist:
         subjob_input = {
-            'cram': x[0], 
-            'crai': x[1],
+            'cram': cram,
             'buildfile': buildfile, 
             'varcatalog': varcatalog,
             'mode': mode,
@@ -92,9 +90,18 @@ def main(cramlist, buildfile, varcatalog, mode, sex):
         subjobs.append(dxpy.new_dxjob(subjob_input, "process"))
 
     # Spawn postprocessing job taking outputs of subjobs as input and capture DX job object 
-    postprocess_job = dxpy.new_dxjob({"suboutputs": [subjob.get_output_ref("outvcf") for subjob in subjobs] }, "postprocess")
+    inputs = {
+        "vcflist": [x.get_output_ref('outvcf') for x in subjobs],
+        "jsonlist": [x.get_output_ref('outjson') for x in subjobs]
+    }
+    postprocess_job = dxpy.new_dxjob(inputs, "postprocess")
 
-    return {"outvcfs": postprocess_job.get_output_ref("outvcfs")}
+    # Return all subjob files
+    outputs = {
+        "vcflist": postprocess_job.get_output_ref(vcflist),
+        "jsonlist": postprocess_job.get_output_ref(jsonlist)
+    }
+    return outputs
 
 # Run everything specified above
 dxpy.run()
